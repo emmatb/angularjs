@@ -1,0 +1,26 @@
+{
+  "name": "curso-angularjs",
+  "version": "1.0.0",
+  "description": "curso angular js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmatb/curso-angularjs.git"
+  },
+  "keywords": [
+    "curso",
+    "angular"
+  ],
+  "author": "emmatb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmatb/curso-angularjs/issues"
+  },
+  "homepage": "https://github.com/emmatb/curso-angularjs#readme",
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}
