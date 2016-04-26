@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookbok - Mis super recetas</title>
+</head>
+<body ng-app="cookbok">
+<!-- Controlador recetas -->
+<div ng-controller="recetas">
+    <ul>
+        <!-- Itera por la lista de recetas y por cada una crea un elemento li-->
+        <li ng-repeat="receta in recetas | orderBy: 'titulo'">{{receta.titulo}}</li>
+    </ul>
+</div>
+<!-- Cargamos AngularJS -->
+<script src="node_modules/angular/angular.min.js"></script>
+<!-- Cargamos y configuramos el módulo -->
+<script src="scripts/app.js"></script>
+<!-- Controladores -->
+<script src="scripts/controllers/recetas.js"></script>
+<!-- Servicios -->
+<script src="scripts/services/servicio-recetas.js"></script>
+
+</body>
+</html>

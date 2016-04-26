@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de inyección de dependencias</title>
+</head>
+<body ng-app="app1">
+
+<div ng-controller="controlador1"></div>
+<div ng-controller="controlador2"></div>
+<div ng-controller="controlador3"></div>
+<!-- Cargamos AngularJS -->
+<script src="node_modules/angular/angular.min.js"></script>
+<script>
+
+    // Setter de la aplicación 'app1'
+    angular.module("app1", []);
+    
+    // Definimos servicio para después inyectarlos en los controladores
+    angular.module("app1").service("servicio1", function () {});
+    angular.module("app1").service("servicio2", function () {});
+
+    // 1. Inyección de dependencias con anotación de array en línea
+    // Se debe respetar el orden dentro de function ya que el inyector de dependencias es por donde se guía,
+    // los nombres podrían ser cualesquiera
+    angular.module("app1").controller("controlador1", ["$scope", "servicio1", "servicio2", function ($scope, servicio1, servicio2) {
+
+    }]);
+
+    // 2. Inyección de dependencias con propiedad $inject
+    // Se debe respetar el orden dentro de function ya que el inyector de dependencias es por donde se guía,
+    // los nombres podrían ser cualesquiera
+    var controlador2 = function ($scope, servicio1, servicio2) {debugger;};
+    controlador2.$inject= ["$scope", "servicio1", "servicio2"];
+    angular.module("app1").controller("controlador2", controlador2);
+
+    // 3. Inyección de dependencias en línea
+    // Aquí los nombres sí son importantes ya que utiliza el nombre de la variable para buscar la dependencia
+    // Si minificamos el código y se cambian los nombres de las variables no funcionaría
+    angular.module("app1").controller("controlador3", function ($scope, servicio1, servicio2) {
+      debugger;
+    })
+
+
+</script>
+</body>
+</html>

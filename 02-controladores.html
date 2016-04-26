@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de controladores y eventos</title>
+</head>
+<body ng-app="app1">
+
+<!-- controlador1-->
+<div ng-controller="controlador1">
+    {{mensaje}}
+    <!-- Muestra mensaje en diálogo-->
+    <button ng-click="mostrarSaludo()">Saludar</button>
+</div>
+
+<div ng-controller="padre">
+    <button ng-click="hacerBroadcast()">Hacer broadcast</button>
+    <div ng-controller="hijo">
+        <button ng-click="hacerEmit()">Hacer emit</button>
+    </div>
+</div>
+
+<!-- Cargamos AngularJS -->
+<script src="node_modules/angular/angular.min.js"></script>
+<script>
+    // Setter de la aplicación app1
+    angular.module("app1", []);
+    // Controlador controlador1
+    angular.module("app1").controller("controlador1", function($scope) {
+
+        // Establecemos un valor en el $scope
+       $scope.mensaje = "Buenas tardes";
+
+        // Establecemos lógica en el $scope
+        $scope.mostrarSaludo = function () {
+            alert('Hola!');
+        };
+    });
+
+    // Controlador padre, jerarquicamente estará por encima del controlador 'hijo'
+    angular.module("app1").controller("padre", function ($scope) {
+        
+        // Se suscribe a un evento que genera el controlador hijo
+        $scope.$on("EventoDesdeControladorHijo", function (evento, datos) {
+            alert("Este mensaje lo ha enviado un controlador hijo");
+        });
+
+        // Emite un evento para que lo capture el controlador hijo
+        // Broadcast realiza una propagación hacia abajo en la jerarquía
+        // Event capturing
+        $scope.hacerBroadcast=function () {
+            $scope.$broadcast("EventoDesdeControladorPadre", 10);
+        };
+    });
+
+    angular.module("app1").controller("hijo", function ($scope) {
+
+        // Se suscribe a un evento que genera el controlador padre
+        $scope.$on("EventoDesdeControladorPadre", function (evento, datos) {
+            alert("Este mensaje lo ha enviado un controlador padre con valor" + datos);
+        });
+
+        // Emite un evento que lo captura el controlador padre
+        // Emit realiza una propagación hacia arriba en la jerarquía
+        // Event bubbling
+        $scope.hacerEmit=function () {
+            $scope.$emit("EventoDesdeControladorHijo");
+        };
+    });
+
+</script>
+
+</body>
+</html>

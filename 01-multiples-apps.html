@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Múltiples módulos en una misma vista</title>
+</head>
+<body>
+
+    <!-- Aplicación 'app1' -->
+    <div ng-app="app1">
+        <!-- Pintamos en pantalla el valor de la variable 'mensaje', publicada en el scope -->
+        <span>{{ mensaje }}</span>
+    </div>
+
+    <!-- Aplicación 'app2' -->
+    <div id="contenedor_app2">
+        <!-- Pintamos en pantalla el valor de la variable 'mensaje', publicada en el scope -->
+        <span>{{ mensaje }}</span>
+    </div>
+
+    <!-- Cargamos AngularJS -->
+    <script src="node_modules/angular/angular.min.js"></script>
+
+    <script>
+
+        // Setters de las aplicaciones 'app1' y 'app2'. En el caso de 'app2', inyectamos
+        // la dependencia del módulo 'app1' para poder usar las funcionalidades que expone.
+        angular.module("app1", []);
+        angular.module("app2", ["app1"]);
+
+        // Definimos un value en 'app1'. Lo usaremos en 'app2'.
+        angular.module("app1").value("mensajeEnApp1", "Mensaje en $rootScope de 'app2', pero procedente de un value de 'app1'.");
+
+        // Bloque run de 'app1'.
+        angular.module("app1").run(function($rootScope) {
+            // Inyectamos $rootScope y publicamos en él un mensaje.
+            $rootScope.mensaje = "Mensaje en $rootScope de 'app1'.";
+        });
+
+        // Bloque run de 'app2'.
+        angular.module("app2").run(function($rootScope, mensajeEnApp1) {
+            // Inyectamos $rootScope y publicamos en él un mensaje
+            // procedente del value 'mensajeEnApp1' de 'app1'.
+            $rootScope.mensaje = mensajeEnApp1;
+        });
+
+        // Una vez el DOM ha terminado de cargar.
+        angular.element(document).ready(function() {
+            // Hacemos el bootstrapping manual de la aplicación 'app2' y
+            // la compilamos sobre el elemento 'contenedor_app2'.
+            angular.bootstrap(document.getElementById("contenedor_app2"), ["app2"]);
+        });
+
+        // Definimos un value en 'app1'. Lo usaremos en 'app2'.
+        angular.module("app2").value("mensajeEnApp1", "Mensaje en $rootScope de 'app2'");
+
+    </script>
+</body>
+</html>
