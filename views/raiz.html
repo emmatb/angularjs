@@ -1,0 +1,9 @@
+<div>
+    <!-- Nueva receta -->
+    <!-- Según el usuario escriba se va rellenando una variable en el scope
+         llamado tituloReceta -->
+    <input type="text" placeholder="Nombre de la receta" ng-model="tituloReceta">
+    <button ng-click="$ctrl.crearReceta()">Crear</button>
+    <!-- Directiva para mostrar la lista de las recetas -->
+    <lista-recetas recetas="recetas" boton-eliminar-pulsado="$ctrl.eliminarReceta(indice)"></lista-recetas>
+</div>

@@ -1,0 +1,10 @@
+<ul>
+    <!-- Itera por la lista de recetas y por cada una crea un elemento li-->
+    <!-- Los elementos que iteramos tienen más información que la recuperada
+         de los servicios. Debemos pasarle el índice en la colección
+         | orderBy: 'titulo' -->
+    <li ng-repeat="receta in recetas">
+        <button ng-click="eliminarReceta($index)">Eliminar</button>
+        {{receta.titulo}}
+    </li>
+</ul>
