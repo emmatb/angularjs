@@ -4,7 +4,7 @@
          de los servicios. Debemos pasarle el índice en la colección
          | orderBy: 'titulo' -->
     <li ng-repeat="receta in recetas">
-        <button ng-click="eliminarReceta($index)">Eliminar</button>
+        <button ng-click="eliminarReceta(receta.id)">Eliminar</button>
         {{receta.titulo}}
     </li>
 </ul>

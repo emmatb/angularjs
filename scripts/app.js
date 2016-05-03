@@ -1,4 +1,4 @@
 /**
  * Çonfiguración principal angular
  */
-angular.module("cookbok", []);
+angular.module("cookbook", []);

@@ -1,6 +1,6 @@
 // Directiva lista recetas
 
-angular.module("cookbok")
+angular.module("cookbook")
         .directive("listaRecetas", function () {
            // Las directivas devuelven siempre un objeto
             return {
@@ -27,8 +27,8 @@ angular.module("cookbok")
 
                     // Notificamos al controlador que se pulsó el botón
                     // de eliminar de una receta.
-                    scope.eliminarReceta = function(indice) {
-                        scope.botonEliminarPulsado({ "indice": indice });
+                    scope.eliminarReceta = function(id) {
+                        scope.botonEliminarPulsado({ "id": id });
                     };
                 }
             }

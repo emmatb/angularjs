@@ -4,7 +4,9 @@
   "description": "curso angular js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lite": "lite-server",
+    "sparrest": "node node_modules/node-sparrest/node-sparrest.js",
+    "start": "concurrently \"npm run lite\" \"npm run sparrest\""
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,10 @@
   "homepage": "https://github.com/emmatb/curso-angularjs#readme",
   "dependencies": {
     "angular": "^1.5.5"
+  },
+  "devDependencies": {
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "node-sparrest": "0.0.7"
   }
 }
