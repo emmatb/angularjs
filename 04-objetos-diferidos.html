@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de objetos diferidos</title>
+</head>
+<body ng-app="app1">
+
+<test></test>
+<!-- Cargamos AngularJS -->
+<script src="node_modules/angular/angular.min.js"></script>
+<script>
+    // Setter de la aplicación
+    angular.module("app1", []);
+
+    // Componente 'test'
+    angular.module("app1").component("test", {
+        // Con templateUrl referenciamos la vista asociada al componente.
+        templateUrl: "views/test.html",
+        // Con controller establecemos la lógica del componente.
+        // Al inyectar $filter se pueden utilizar todos los filtros que expone angular
+        // y los filtros propios
+        controller: function($q) {
+
+            var self = this;
+
+            self.deferredObjectOK = function () {
+
+                // Se crea el objeto diferido
+                var diferido = $q.defer();
+
+                // Se simula asincronía con setTimeout
+                setTimeout(function () {
+                    // Resolvemos el objeto diferido
+                    diferido.resolve("¡Objeto resuelto correctamente!");
+                }, 5000);
+
+                // Se trabaja siempre con la promesa del objeto diferido
+                diferido.promise.then(
+                   // Manejador que se ejecuta si se resuelve el objeto diferido
+                   function(valor) {
+                       alert(valor);
+                   },
+                   // Manejador que se ejecuta si se rachaza el objeto diferido
+                   function (valor) {  }
+                );
+            }
+
+            self.deferredObjectKO = function () {
+
+                // Se crea el objeto diferido
+                var diferido = $q.defer();
+
+                // Se simula asincronía con setTimeout
+                setTimeout(function () {
+                    // Resolvemos el objeto diferido
+                    diferido.reject("¡Objeto no resuelto!");
+                }, 5000);
+
+                // Se trabaja siempre con la promesa del objeto diferido
+                diferido.promise.then(
+                        // Manejador que se ejecuta si se resuelve el objeto diferido
+                       undefined,
+                        // Manejador que se ejecuta si se rachaza el objeto diferido
+                        function (valor) {
+                            alert(valor);
+                        }
+                );
+            }
+
+            // Combinación de promesas
+            // Se resuelve la promesa combinación si se resuelven todas
+            self.coleccionPromesas = function () {
+
+                // Se combinan las promesas
+                // Se mantiene el orden
+                $q.all([
+                   $q.when("Mensaje 1"),
+                   $q.when("Mensaje 2"),
+                    $q.when("Mensaje 3")
+                ]).then(
+                        // Si se resuelven todas
+                        function (datos) {
+                         alert("Promesa 1: " + datos[0] + " Promesa 2: " + datos[1] +
+                         " Promesa 3: " + datos[2]);
+                        },
+                        // Si alguna no se resuelve
+                        function () {
+
+                       });
+            }
+        }
+    });
+</script>
+
+<!-- Vistas inline. Definir en el mismo documento definimos la vista del componente -->
+<script type="text/ng-template" id="views/test.html">
+    <!--- Botón que resuelve el objeto diferido -->
+    <button ng-click="$ctrl.deferredObjectOK()">Objeto diferido que se resuelve</button>
+    <!--- Botón que rechaza el objeto diferido -->
+    <button ng-click="$ctrl.deferredObjectKO()">Objeto diferido que se rechaza</button>
+    <!--- Botón que resuelve varias promesas -->
+    <button ng-click="$ctrl.coleccionPromesas()">Resolvemos varias promesas</button>
+</script>
+</body>
+</html>
