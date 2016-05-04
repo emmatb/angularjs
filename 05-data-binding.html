@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de Data Binding</title>
+</head>
+<body ng-app="app1">
+<div>
+    <!-- Two-way data binding -->
+    <div>
+        <h4>Two-way data binding</h4>
+        <input type="text" placeholder="Escribe tu nombre" ng-model="nombre"/>
+        <!-- Sincroniza con cada pulsación de teclas -->
+        <span>{{nombre}}</span>
+    </div>
+
+    <!-- One-way data binding -->
+    <div>
+        <h4>One-time data binding</h4>
+        <input type="text" placeholder="Escribe tu apellido" ng-model="apellido"/>
+        <!-- Sincroniza un única vez y desvincula el observador.
+             Como el evento por defecto es onchange se sincroniza al pulsar la
+             primera tecla y después ya no se actualiza -->
+        <span ng-bind="::apellido"></span>
+        <!--<span>{{::apellido}}</span>-->
+    </div>
+
+    <!-- One-way data binding con ng-model-options -->
+    <div>
+        <h4>One-time data binding con ng-model-options - updateOn</h4>
+        <input type="text" placeholder="Escribe tu ciudad" ng-model="ciudad"
+         ng-model-options="{ updateOn: 'blur'}"/>
+        <!-- Sincroniza sólo en el evento onblur del input -->
+        <!--<span ng-bind="ciudad"></span>-->
+        <span>{{ciudad}}</span>
+    </div>
+
+    <!-- One-way data binding con ng-model-options -->
+    <div>
+        <h4>One-time data binding con ng-model-options - debounce</h4>
+        <input type="text" placeholder="Escribe tu país" ng-model="pais"
+               ng-model-options="{ debounce: 1000}"/>
+        <!-- Sincroniza sólo en el evento onblur del input -->
+        <!--<span ng-bind="pais"></span>-->
+        <span>{{pais}}</span>
+    </div>
+
+</div>
+
+<!-- Cargamos AngularJS -->
+<script src="node_modules/angular/angular.min.js"></script>
+<script>
+
+    // Setter de la aplicación
+    angular.module("app1", []);
+
+</script>
+
+</body>
+</html>

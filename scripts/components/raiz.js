@@ -14,6 +14,10 @@ angular
 
             // Obtenemos la lista de recetas.
             self.$onInit = function () {
+
+                // Se inicia la colección de ingredientes
+                self.ingredientesNuevaReceta = [];
+
                 // Toda operación asíncrona en Angular es una promesa
                 // Promesa - puntero donde después estará la respuesta
                 ServicioRecetas.obtenerRecetas().then(
@@ -29,6 +33,11 @@ angular
                     }
                 )
             }
+            
+            // Añadir ingrediente a la nueva receta
+            self.agregrarIngrediente = function (ingrediente) {
+                ingredientesNuevaReceta.push(ingrediente);
+            }
 
             // Crea una nueva receta.
             self.crearReceta = function() {
@@ -38,7 +47,8 @@ angular
 
                     // Montamos el objeto receta con el título introducido.
                     var receta = {
-                        titulo: self.tituloReceta
+                        titulo: self.tituloReceta,
+                        ingredientes: self.ingredientesNuevaReceta
                     };
                     // Llamamos al servicio para crear la receta.
                     ServicioRecetas.crearReceta(receta).then(

@@ -4,7 +4,7 @@
 
 angular.module("cookbook")
 
-    .service("ServicioRecetas", function ($http) {
+    .service("ServicioRecetas", function ($http, Configuracion) {
 
         // Inyectamos un cliente http para realizar
         // peticiones AJAX
@@ -21,7 +21,7 @@ angular.module("cookbook")
             // Se almacena la nueva receta
             localStorage.setItem("recetas", cadenaConRecetas);*/
 
-            return $http.post("http://127.0.0.1:8000/api/recetas/", receta);
+            return $http.post(Configuracion.urlServidor + "/api/recetas/", receta);
         };
 
         // Recuperar lista de recetas
@@ -34,7 +34,7 @@ angular.module("cookbook")
 
             var recetas = cadenaConRecetas? JSON.parse(cadenaConRecetas) : []; */
 
-           return $http.get("http://127.0.0.1:8000/api/recetas");
+           return $http.get(Configuracion.urlServidor +"/api/recetas");
         };
 
         // Eliminar receta
@@ -52,7 +52,7 @@ angular.module("cookbook")
                 // Se almacena la nueva receta
                 localStorage.setItem("recetas", cadenaConRecetas);
             }*/
-            return $http.delete("http://127.0.0.1:8000/api/recetas/" + id);
+            return $http.delete(Configuracion.urlServidor + "/api/recetas/" + id);
 
         };
     });

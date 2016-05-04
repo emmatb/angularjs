@@ -1,0 +1,31 @@
+<div>
+    <input type="text"
+           placeholder="Introduce un ingrediente"
+           ng-model="$ctrl.ingrediente"
+           ng-model-options="{ updateOn: 'blur'}">
+    <button ng-click="$ctrl.crearIngrediente()" class="button button-primary">Añadir</button>
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Ingrediente</th>
+                <th>Cantidad (gr.)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Ingrediente del ng-repeat no se pisa con el del modelo.
+                 Están en scopes diferentes. -->
+            <tr ng-repeat="ingrediente in $ctrl.ingredientes">
+                <!-- No se puede modificar así que sólo ponemos sincronización one-way-->
+                <td>{{::ingrediente.nombre}}</td>
+                <td>
+                    <!-- -->
+                    <input type="number" min="1" max="9999" ng-model="ingrediente.cantidad">
+                </td>
+                <td>
+                    <button ng-click="" class="button button-primary">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

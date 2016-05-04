@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Cookbok - Mis super recetas</title>
+    <link rel="stylesheet" href="node_modules/skeleton-css/css/normalize.css">
+    <link rel="stylesheet" href="node_modules/skeleton-css/css/skeleton.css">
 </head>
 <body ng-app="cookbook">
 <!-- Componente raíz -->
@@ -11,11 +13,14 @@
 <script src="node_modules/angular/angular.min.js"></script>
 <!-- Cargamos y configuramos el módulo -->
 <script src="scripts/app.js"></script>
+<!-- Cargamos las constantes -->
+<script src="scripts/constants/constants.js"></script>
 <!-- Servicios -->
 <script src="scripts/services/servicio-recetas.js"></script>
 <!-- Directivas -->
 <script src="scripts/directives/lista-recetas.js"></script>
 <!-- Componentes -->
 <script src="scripts/components/raiz.js"></script>
+<script src="scripts/components/ingredientes.js"></script>
 </body>
 </html>
