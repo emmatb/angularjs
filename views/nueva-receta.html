@@ -1,0 +1,22 @@
+<div>
+<!-- Nueva receta -->
+<!-- Según el usuario escriba se va rellenando una variable en el scope
+     llamado tituloReceta -->
+<div class="row">
+    <div class="ten columns">
+        <input type="text" placeholder="Nombre de la receta"
+               ng-model="$ctrl.receta.titulo" class="u-full-width" ng-model-options="{ updateOn: 'blur'}">
+    </div>
+    <div>
+        <button ng-click="$ctrl.crearReceta()" class="button button-primary">Crear</button>
+    </div>
+</div>
+<!-- Lista de ingredientes -->
+<div class="row">
+    <div class="twelve columns">
+        <ingredientes ingredientes="$ctrl.ingredientesNuevaReceta"
+                      al-agregar-ingrediente="$ctrl.agregarIngrediente(ingrediente)">
+        </ingredientes>
+    </div>
+</div>
+</div>

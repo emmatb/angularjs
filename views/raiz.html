@@ -1,32 +1,19 @@
 <div class="container">
-
     <header>
         <h1>Cookbook</h1>
         <h5>Mis recetas de cocina</h5>
     </header>
-    <!-- Nueva receta -->
-    <!-- Según el usuario escriba se va rellenando una variable en el scope
-         llamado tituloReceta -->
-    <div class="row">
-        <div class="ten columns">
-            <input type="text" placeholder="Nombre de la receta" ng-model="$ctrl.tituloReceta" ng-model-options="{ updateOn: 'blur'}">
-        </div>
-        <div>
-            <button ng-click="$ctrl.crearReceta()" class="button button-primary">Crear</button>
-        </div>
-    </div>
-    <!-- Lista de ingredientes -->
-    <div class="row">
-        <div class="twelve columns">
-          <ingredientes ingredientes="$ctrl.ingredientesNuevaReceta"
-            al-agregar-ingrediente="$ctrl.agregarIngrediente(ingrediente)">
-          </ingredientes>
-        </div>
-    </div>
-    <div class="row">
-       <div class="twelve columns">
-           <!-- Directiva para mostrar la lista de las recetas -->
-           <lista-recetas recetas="$ctrl.recetas" boton-eliminar-pulsado="$ctrl.eliminarReceta(id)"></lista-recetas>
-       </div>
-    </div>
+    <!-- Barra de navegación -->
+    <nav class="barra-navegacion">
+        <ul>
+            <li>
+                <a ng-link="['MisRecetas']">Mis recetas</a>
+            </li>
+            <li>
+                <a ng-link="['NuevaReceta']">Nueva Receta</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Contenido de los componentes a donde se navega. Componentes hijos -->
+    <ng-outlet></ng-outlet>
 </div>

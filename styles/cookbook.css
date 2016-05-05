@@ -1,0 +1,8 @@
+.barra-navegacion li {
+    display: inline-block;
+    padding: 8px 0 20px 20px;
+}
+
+.barra-navegacion ul {
+    border-bottom: 1px solid #1EAEDB;
+}

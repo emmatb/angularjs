@@ -10,10 +10,12 @@ angular.module("cookbook").component("ingredientes", {
         var self = this;
         
         self.crearIngrediente = function () {
+
+            debugger;
             
             // Creo el objeto ingrediente
             var ingrediente = {
-                nombre: self.ingrediente,
+                nombre: self.nuevoIngrediente,
                 cantidad: 1
             };
             
