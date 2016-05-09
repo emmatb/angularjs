@@ -5,11 +5,15 @@ angular.module("cookbook")
            // Con controller establecemos la lógica del componente.
            // Al inyectar $filter se pueden utilizar todos los filtros que expone angular
            // y los filtros propios
-           controller: function (ServicioRecetas, $filter) {
+           controller: function (ServicioRecetas, $filter, $pubsub) {
                var self = this;
 
                // Obtenemos la lista de recetas.
                self.$onInit = function () {
+
+                   // Lanzamos el evento SeccionNavegada para indicar que
+                   // se acaba de mover a esta sección. Nofica al componente padre
+                   $pubsub.$publish("SeccionNavegada", "MisRecetas");
 
                    // Toda operación asíncrona en Angular es una promesa
                    // Promesa - puntero donde después estará la respuesta

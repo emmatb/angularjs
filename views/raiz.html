@@ -4,13 +4,15 @@
         <h5>Mis recetas de cocina</h5>
     </header>
     <!-- Barra de navegación -->
+    </nav>
     <nav class="barra-navegacion">
         <ul>
-            <li>
-                <a ng-link="['MisRecetas']">Mis recetas</a>
+            <!-- ng-class asigna clases CSS en función de expresión booleana -->
+            <li ng-class="{ 'seleccionada': $ctrl.misRecetasSeleccionada }">
+                <a ng-click="$ctrl.navegarMisRecetas()">Mis Recetas</a>
             </li>
-            <li>
-                <a ng-link="['NuevaReceta']">Nueva Receta</a>
+            <li ng-class="{ 'seleccionada': $ctrl.nuevaRecetaSeleccionada }">
+                <a ng-click="$ctrl.navegarNuevaReceta()">Nueva Receta</a>
             </li>
         </ul>
     </nav>

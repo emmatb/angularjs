@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de Services, Factories y Providers</title>
+</head>
+<body ng-app="app1">
+<!-- Vista asociada al controlador 'test1'-->
+<div ng-controller="test1">
+<div>
+    <p>{{::mensajeDesdeServicio}}</p>
+    <p>{{::mensajeDesdeFactoria}}</p>
+    <p>{{::mensajeDesdeProvider}}</p>
+</div>
+
+</div>
+
+<!-- Cargamos AngularJS -->
+<script src="node_modules/angular/angular.min.js"></script>
+<script>
+
+    // Setter de la aplicación
+    angular.module("app1", []);
+
+    // Controlador
+    angular.module("app1").controller("test1", function ($scope, service1, factory1, provider1) {
+        $scope.mensajeDesdeServicio = service1.obtenerMensaje();
+        $scope.mensajeDesdeFactoria = factory1();
+        $scope.mensajeDesdeProvider = provider1;
+    });
+
+    // Servicio
+    angular.module("app1").service("service1", function () {
+        this.obtenerMensaje = function () {
+            return "Mensaje servicio";
+        }
+    });
+
+    // Factoría
+    // Desaparece en angular 2
+    angular.module("app1").factory("factory1", function () {
+       return function () {
+           return "Mensaje factoría";
+       }
+    });
+
+    // Provider
+    angular.module("app1").provider("provider1", function () {
+        var mensaje = "Mensaje por defecto Provider";
+        return {
+            // Funcionalidad expuesta para la fase de config
+            cambiarMensaje: function (nuevoMensaje) {
+                mensaje = nuevoMensaje;
+            },
+            // Funcionalidad expuesta para fase de run
+            // por estar definido dentro de $get
+            // Ejecución
+            $get: function () {
+                return mensaje;
+            }
+        };
+    });
+
+    // Fase de configuración
+    // Podemos utilizar los proveedores si añadimos a su nombre 'Provider'
+    angular.module("app1").config(function (provider1Provider) {
+        provider1Provider.cambiarMensaje("Mensaje en fase de configuración");
+    });
+
+</script>
+</body>
+</html>

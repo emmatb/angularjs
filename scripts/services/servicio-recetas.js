@@ -10,7 +10,7 @@ angular.module("cookbook")
         // peticiones AJAX
         
            // Crear una nueva receta
-           this.crearReceta = function (receta) {
+           this.crearReceta = function (receta, imagen) {
 
                /* // Se obtiene la colección
             var recetas = this.obtenerRecetas();
@@ -21,7 +21,45 @@ angular.module("cookbook")
             // Se almacena la nueva receta
             localStorage.setItem("recetas", cadenaConRecetas);*/
 
-            return $http.post(Configuracion.urlServidor + "/api/recetas/", receta);
+               // Se comprueba que la imagen ha sido indicada
+               if (imagen) {
+
+                   // Se crea un objeto datos de formulario
+                   var datos = new FormData();
+
+                   // Se añade la imagen a los datos del formulario
+                   datos.append("imagen", imagen);
+
+                   // Creamos un objeto de configuración. Necesitamos sobreescribir la cabecera
+                   // Content-type que por defecto es 'application/json'
+                   // Al indicar undefined, se infiere el tipo de contenido
+                   var config = {
+                       "headers": {
+                           "Content-Type": undefined
+                       }
+                   }
+
+                   // Se sube la imagen al servidor y nos devuelve la ruta de la imagen
+                   var promesa =
+                       $http
+                        .post(Configuracion.urlServidor + "/upload",
+                                datos,
+                                config)
+                        .then(
+                          function (respuesta) {
+
+                           // Asigno la ruta de la imagen subida al objeto 'receta'
+                           receta.rutaImagen = respuesta.data.path;
+
+                           return $http.post(Configuracion.urlServidor + "/api/recetas/", receta);
+                       }
+                   );
+               }
+               else {
+                   var promesa =  $http.post(Configuracion.urlServidor + "/api/recetas/", receta);
+               }
+
+               return promesa;
         };
 
         // Recuperar lista de recetas
@@ -55,4 +93,10 @@ angular.module("cookbook")
             return $http.delete(Configuracion.urlServidor + "/api/recetas/" + id);
 
         };
+
+        // Obtiene la ruta absoluta a las imágenes
+        this.obtenerRutaImagen = function (rutaRelativa) {
+
+            return rutaRelativa ? (Configuracion.urlServidor + "/" + rutaRelativa): null;
+        }
     });

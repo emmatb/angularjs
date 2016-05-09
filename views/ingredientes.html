@@ -2,9 +2,10 @@
     <input type="text"
            placeholder="Introduce un ingrediente"
            ng-model="$ctrl.nuevoIngrediente"
-           ng-model-options="{ updateOn: 'blur'}">
-    <button ng-click="$ctrl.crearIngrediente()" class="button button-primary">Añadir</button>
-    <table class="u-full-width">
+           ng-keyup="$ctrl.alPulsarTecla($event)">
+    <!-- Sólo se muestra si hay algún ingrediente
+         ng-show. También se podría controlar con ng-hide y ng-if -->
+    <table class="u-full-width" ng-show="{{$ctrl.ingredientes.length > 0}}">
         <thead>
             <tr>
                 <th>Ingrediente</th>

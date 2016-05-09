@@ -1,8 +1,28 @@
-.barra-navegacion li {
-    display: inline-block;
-    padding: 8px 0 20px 20px;
-}
 
 .barra-navegacion ul {
+    height: 42px;
     border-bottom: 1px solid #1EAEDB;
+}
+
+.barra-navegacion li {
+    display: inline-block;
+    padding-top: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 33px;
+}
+
+.barra-navegacion li.seleccionada {
+    border-top: 1px solid #1EAEDB;
+    border-left: 1px solid #1EAEDB;
+    border-right: 1px solid #1EAEDB;
+    border-bottom: 1px solid #ffffff;
+}
+
+.barra-navegacion a {
+    text-decoration: none;
+}
+
+.barra-navegacion a:hover {
+    cursor: pointer;
 }

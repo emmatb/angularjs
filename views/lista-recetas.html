@@ -1,10 +1,19 @@
-<ul>
-    <!-- Itera por la lista de recetas y por cada una crea un elemento li-->
-    <!-- Los elementos que iteramos tienen más información que la recuperada
-         de los servicios. Debemos pasarle el índice en la colección
-         | orderBy: 'titulo' -->
-    <li ng-repeat="receta in recetas">
-        <button ng-click="eliminarReceta(receta.id)">Eliminar</button>
-        {{receta.titulo}}
-    </li>
-</ul>
+<table class="u-full-width">
+    <tbody>
+      <!-- Itera por la lista de recetas y por cada una crea un elemento li-->
+      <!-- Los elementos que iteramos tienen más información que la recuperada
+           de los servicios. Debemos pasarle el índice en la colección | orderBy: 'titulo' -->
+       <tr ng-repeat="receta in recetas">
+         <td>
+             <img ng-src="{{obtenerRutaImagen(receta.rutaImagen)}}" alt="{{receta.titulo}}" width="50px" height="50px">
+         </td>
+         <td>
+             <div>{{::receta.titulo}}</div>
+             <div>{{receta.ingredientes | ListaIngredientes}}</div>
+         </td>
+         <td>
+             <button ng-click="eliminarReceta(receta.id)">Eliminar</button>
+         </td>
+       </tr>
+    </tbody>
+</table>

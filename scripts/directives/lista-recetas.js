@@ -1,7 +1,7 @@
 // Directiva lista recetas
 
 angular.module("cookbook")
-        .directive("listaRecetas", function () {
+        .directive("listaRecetas", function (ServicioRecetas) {
            // Las directivas devuelven siempre un objeto
             return {
                 // Con restrict indicamos cómo se usará la directiva
@@ -30,6 +30,10 @@ angular.module("cookbook")
                     scope.eliminarReceta = function(id) {
                         scope.botonEliminarPulsado({ "id": id });
                     };
+
+                    // Se expone en el scope el servicio obtenerRutaImagen
+                    // para poder utilizarlo en la vista
+                    scope.obtenerRutaImagen = ServicioRecetas.obtenerRutaImagen;
                 }
             }
         });

@@ -1,22 +1,29 @@
 <div>
-<!-- Nueva receta -->
-<!-- Según el usuario escriba se va rellenando una variable en el scope
-     llamado tituloReceta -->
-<div class="row">
-    <div class="ten columns">
-        <input type="text" placeholder="Nombre de la receta"
-               ng-model="$ctrl.receta.titulo" class="u-full-width" ng-model-options="{ updateOn: 'blur'}">
+    <!-- Nueva receta -->
+    <header>
+        <h4>Nueva receta</h4>
+    </header>
+    <div class="row">
+        <!-- Selección de imagen -->
+        <div class="five columns">
+            <image-picker image-selected="$ctrl.imagenSeleccionada(imageFile)"></image-picker>
+        </div>
+        <div class="seven columns">
+            <div>
+                <!-- Según el usuario escriba se va rellenando una variable en el scope llamado titulo-->
+                <input type="text" placeholder="Nombre de la receta"
+                       ng-model="$ctrl.receta.titulo" class="u-full-width" ng-model-options="{ updateOn: 'blur'}">
+            </div>
+            <div>
+                <!-- Lista de ingredientes -->
+                <ingredientes ingredientes="$ctrl.ingredientesNuevaReceta"
+                              al-agregar-ingrediente="$ctrl.agregarIngrediente(ingrediente)">
+                </ingredientes>
+            </div>
+            <div>
+                <button ng-click="$ctrl.crearReceta()" class="button button-primary">Crear</button>
+            </div>
+        </div>
     </div>
-    <div>
-        <button ng-click="$ctrl.crearReceta()" class="button button-primary">Crear</button>
-    </div>
-</div>
-<!-- Lista de ingredientes -->
-<div class="row">
-    <div class="twelve columns">
-        <ingredientes ingredientes="$ctrl.ingredientesNuevaReceta"
-                      al-agregar-ingrediente="$ctrl.agregarIngrediente(ingrediente)">
-        </ingredientes>
-    </div>
-</div>
+
 </div>
